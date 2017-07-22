@@ -1,59 +1,9 @@
 var Game = function(options) {
-    var canvas;
-    var context;
-    var button_restart;
-    // препятствия
-    var allObjects = {};
-
-    function GameObject(type, name, energy, color, effect) {
-        this.type = type;
-        this.name = name;
-        this.energy = energy;
-        this.color = color;
-        this.effect = effect;
-    }
-    var coffe = new GameObject("objectText", "Кофе", 15, "black");
-    var beer = new GameObject("objectText", "Пивас", 15, "black", { speed: 10, time: 5 });
-    var deadline = new GameObject("objectText", "Дедлайн", -10, "red");
-    var hotfix = new GameObject("objectText", "Хотфикс!", -10, "red");
-    var admin = new GameObject("objectText", "Админ смотрит историю твоего браузера", -10, "red");
-    var information = new GameObject("text", "Игровая информация", 0, "red");
-    var types = [
-        coffe,
-        beer,
-        deadline,
-        deadline,
-        deadline,
-        hotfix,
-        hotfix,
-        hotfix,
-        hotfix,
-        hotfix,
-        admin
-    ];
-
-    // игрок
-    var playerG = new GameObject("player", "Я", 100, "black");
-    // очки
-    var playerScore = {},
-        playerEnergy = {};
-    // основные настройки
-    var _options = Object.assign({
-        canvasProperties: {
-            width: 800,
-            height: 400
-        },
-        startPosition: {
-            x: 80,
-            y: 10
-        },
-        scale: (window.innerWidth) / 800 * (window.innerHeight) / 400
-    }, options);
     // создание игры
     this.create = function() {
         canvas = document.createElement("canvas");
         button_restart = document.createElement("button");
-        button_restart.innerText = "Restart";
+        button_restart.innerText = "Сменить место работы";
         button_restart.classList.add("game__button-restart");
         context = canvas.getContext("2d");
         addEventListeners('touchend pointerup', button_restart, function(event) {
@@ -70,49 +20,104 @@ var Game = function(options) {
         });
         canvas.classList.add('game__canvas');
         document.body.appendChild(canvas);
-        document.body.appendChild(button_restart)
-        // canvas.width = this._options.canvasProperties.width;
-        // canvas.height = this._options.canvasProperties.height;
+        document.body.appendChild(button_restart);
         canvas.width = window.innerWidth;
         canvas.height = window.innerHeight;
-        // window.addEventListener('resize', resizeCanvas, false);
-        // context.scale(scale.w, scale.h);
+        window.addEventListener('resize', function() {
+            _options.scale = (window.innerWidth) / 800 * (window.innerHeight) / 400;
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        });
     };
+    // перезапуск игры
     this.restart = function() {
         gameArea.restart();
     };
     // начало игры
     this.startGame = function() {
         player = new Сomponent(30, 30, playerG, _options.startPosition.x, _options.startPosition.y);
-        player.gravity = 0.05;
-        player.speed = 2;
         playerScore = new Сomponent("30px", "30px", information, 20, 20);
         playerEnergy = new Сomponent("30px", "30px", information, 20, 40);
-        playerEnergy.text = "Energy: " + player.energy;
         gameArea.start();
     };
-    // миро игры
+    var canvas;
+    var context;
+    var button_restart;
+    // игровые объекты
+    var allObjects = {};
+
+    var coffee = new GameObject("objectText", "Кофе", "black", new Effect( { speed: 5, energy: 10 }, 5));
+    var cookies = new GameObject("objectText", "Печенька", "black", new Effect( { energy: 2 }));
+    var beer = new GameObject("objectText", "Пивас", "black", new Effect( { speed: -5, energy: 10 }, 5));
+    var deadline = new GameObject("objectText", "Дедлайн", "red", new Effect( { speed: 40, energy: -20 }, 3));
+    var task = new GameObject("objectText", "Таск", "red", new Effect( { energy: -5 }));
+    var hotfix = new GameObject("objectText", "Хотфикс!", "red", new Effect( { energy: -15 }));
+    var hotfixLarge = new GameObject("objectText", "ОЧЕНЬ СРОЧНЫЙ ХОТФИКС!", "red", new Effect( { energy: -20 }));
+    var crazy = new GameObject("objectText", "Психануть", "red", new Effect( { speed: 500, energy: -50 }, 5));
+    var information = new GameObject("text", "Игровая информация", "red");
+    var types = [
+        coffee,
+        beer,
+        cookies,
+        cookies,
+
+        deadline,
+        task,
+        task,
+        task,
+        task,
+        task,
+        hotfix,
+        hotfixLarge,
+        crazy
+    ];
+
+    // создание игрока
+    var playerG = new GameObject("player", "Я", "black");
+    // очки
+    var playerScore = {},
+        playerEnergy = {};
+    // основные настройки
+    var _options = Object.assign({
+        canvasProperties: {
+            width: 800,
+            height: 400
+        },
+        startPosition: {
+            x: 80,
+            y: 10
+        },
+        scale: (window.innerWidth) / 800 * (window.innerHeight) / 400
+    }, options);
+    var gamePlay;
+    // мир игры
     var gameArea = {
         start : function() {
             this.frameNo = 0;
             this.interval = setInterval(updateGameArea, 20);
+            
         },
         clear : function() {
             context.clearRect(0, 0, canvas.width, canvas.height);
         },
         restart: function() {
-            player.energy = 100;
-            player.gravity = 0.05;
-            player.x = _options.startPosition.x;
-            player.y = _options.startPosition.y;
-            player.gravitySpeed = 0;
+            player = new Сomponent(30, 30, playerG, _options.startPosition.x, _options.startPosition.y);
             this.frameNo = 0;
             allObjects = {};
             this.clear();
+            clearInterval(gameArea.interval);
+            this.interval = setInterval(updateGameArea, 20);
         }
     };
-    // конструктор объекта игры
+    // настройки игры
+    var gameOptions = {
+        frequencyCreation: 200
+    };
+    // конструктор объекта в Canvas
     function Сomponent(width, height, gameObject, x, y) {
+        for (var key in gameObject) {
+            this[key] = gameObject[key];
+        }
         this.energy = gameObject.energy;
         this.width = width;
         this.height = height;
@@ -129,7 +134,7 @@ var Game = function(options) {
         this.speedY = 0;
         this.x = x;
         this.y = y;
-        // обновление объекта
+        // обновление и отрисовка объекта
         this.update = function() {
             if (gameObject.type == "text") {
                 context.fillStyle = gameObject.color;
@@ -151,7 +156,7 @@ var Game = function(options) {
             this.y += this.speedY + this.gravitySpeed;
             this.hit();
         };
-        // границы поля
+        // касание границ игрового поля
         this.hit = function() {
             var rockbottom = canvas.height - this.height;
             if (this.y > rockbottom) {
@@ -163,8 +168,8 @@ var Game = function(options) {
                 this.gravitySpeed = 0;
             }
         };
-        // столкновение
-        this.crashWith = function(otherobj) {
+        // столкновение с другими объектами
+        this.strikeWith = function(otherobj) {
             var myleft = this.x;
             var myright = this.x + (this.width);
             var mytop = this.y;
@@ -173,18 +178,14 @@ var Game = function(options) {
             var otherright = otherobj.x + (otherobj.width);
             var othertop = otherobj.y;
             var otherbottom = otherobj.y + (otherobj.height);
-            var crash = true;
-            if (otherobj.type === "active" && this.type === "active") {
-                if ( (mybottom < othertop) || (mytop > otherbottom) && (mytop > othertop)) {
-                    crash = false;
-                }
-                return crash;
+            var strike = true;
+            if ((mybottom < othertop) ||
+                (mytop > otherbottom) ||
+                (myright < otherleft) ||
+                (myleft > otherright)) {
+                strike = false;
             }
-            
-            else if ((mybottom < othertop) || (mytop > otherbottom) || (myright < otherleft) || (myleft > otherright)) {
-                crash = false;
-            }
-            return crash;
+            return strike;
         }
     }
     // процесс игры
@@ -197,44 +198,42 @@ var Game = function(options) {
         var rand = Math.floor(Math.random() * types.length);
         return types[rand];
     }
+    function onGameOver(buttonIndex) {
+        if (buttonIndex === 1) {
+            gameArea.restart();
+        }
+    }
     /**
      * Обновление событий в мире игры
      */
     function updateGameArea() {
+        if (player.energy <= 0) {
+            navigator.notification.confirm(
+                'Вы перегорели на работе.',
+                onGameOver,
+                'Геймовер',
+                ['Сменить работу','Грустить']
+            );
+            clearInterval(gameArea.interval);
+        }
         var x, height, gap, minHeight, maxHeight, minGap, maxGap;
         // очистка объектов
         if (idDeleteObject) {
             delete allObjects[idDeleteObject];
             idDeleteObject = null;
         }
-        // проверка событий и объектов вышедших за рамки игры
+        // проверка событий и объектов; удлаение вышедших за рамки игры
         for (var id in allObjects) {
             var object = allObjects[id];
             if (object.x + object.width < 0) {
                 idDeleteObject = id;
                 break;
-            } else if (player.crashWith(object)) {
+            } else if (player.strikeWith(object)) {
                 if (object.effect) {
-                    var keySave;
-                    for (var key in object.effect) {
-                        player[key] += object.object[key];
-                        keySave = key;
-                        if (key == "time") {
-                            function fun() {
-                                player[keySave] -= object[keySave];
-                            } 
-                            setTimeout(func, object[key] * 1000);
-                        }
-                        console.log(player)
-                        debugger
-                    }
+                    object.effect.buff(player);
                 }
-                player.energy += object.energy;
                 idDeleteObject = id;
                 break;
-            }
-            if (player.energy <= 0) {
-                return;
             }
         }
 
@@ -245,16 +244,16 @@ var Game = function(options) {
             player.energy -= 1;
         }
         // расстановка объектов
-        if (gameArea.frameNo == 1 || everyinterval(200)) {
+        if (gameArea.frameNo == 1 || everyinterval(gameOptions.frequencyCreation)) {
             minHeight = canvas.height / 20;
             maxHeight = canvas.height / 10;
             minWidth = canvas.width / 20;
             maxWidth = canvas.width / 10;
-            minGap = player.height * 1.5;
+            minGap = player.height * 0.5;
             maxGap = player.height * 2;
             var positionY = 0;
-            var index = 0;
-            while (positionY < canvas.height && index < 5) {
+            var maxCountOfObject = 0;
+            while (positionY < canvas.height && maxCountOfObject < 10) {
                 x = canvas.width + randomPositionX();
                 height = Math.floor(Math.random() * (maxHeight - minHeight + 1) + minHeight);
                 width = Math.floor(Math.random() * (maxWidth - minWidth + 1) + minWidth);
@@ -263,40 +262,88 @@ var Game = function(options) {
                 positionY += (height + gap);
                 allObjects[indexObject].update();
                 indexObject++;
-                index++;
+                maxCountOfObject++;
             }
         }
         for (var id in allObjects) {
-            allObjects[id].x -= player.speed;
+            allObjects[id].x -= Math.floor(player.speed / 5);
             allObjects[id].update();
         }
-        playerScore.text = "Score: " + gameArea.frameNo;
-        playerEnergy.text = "Energy: " + player.energy;
+        playerScore.text = "Очки: " + gameArea.frameNo;
+        playerEnergy.text = "Энергия: " + player.energy;
         playerScore.update();
         playerEnergy.update();
         player.newPos();
         player.update();
-        indexObject++;
     }
     // в нужный момент времени
     function everyinterval(n) {
-        if ((gameArea.frameNo / n) % 1 === 0) { return true; }
+        if ((gameArea.frameNo / Math.floor(n)) % 1 === 0) { return true; }
         return false;
     }
     // изменение гравитации
     function accelerate(n) {
         player.gravity = n;
     }
-}
+};
 
 function addEventListeners (types, elem, callback) {
     types.split(' ').forEach(function (type) {
         elem.addEventListener(type, callback);
     }, this);
 }
-
 function removeEventListeners (types, elem, callback) {
     types.split(' ').forEach(function (type) {
         elem.removeEventListener(type, callback);
     }, this);
+}
+
+/**
+ * Конструктор игрового объекта
+ * @param {*} type 
+ * @param {*} name 
+ * @param {*} color 
+ * @param {*} effect 
+ */
+function GameObject(type, name, color, effect) {
+    this.type = type;
+    this.name = name;
+    this.color = color;
+    if (type === "player") {
+        this.energy = 100;
+        this.gravity = 0.05;
+        this.speed = 10;
+    } else {
+        this.effect = effect;
+    }
+}
+
+/**
+ * Эффект, который накладывается от столкновения с объектом
+ * @param {*} properties 
+ * @param {*} time 
+ */
+function Effect(properties, time) {
+    this.buff = function(target) {
+        for (var key in properties) {
+            target[key] += properties[key];
+            if (time && key !== "energy") {
+                new Debuff(key, properties[key], time, target);
+            }
+        }
+        
+    };
+}
+
+/**
+ * Cнятие накладываемого эффекта c цели
+ * @param {*} name 
+ * @param {*} value 
+ * @param {*} time 
+ * @param {*} target 
+ */
+function Debuff(name, value, time, target) {
+    setTimeout(function(){
+        target[name] -= value;
+    }, time * 1000);
 }
