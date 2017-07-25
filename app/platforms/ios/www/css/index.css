@@ -120,15 +120,125 @@ canvas {
 
 .game__canvas {
     z-index: 1;
+    position: fixed;
+    top: 70px;
+    bottom: 40px;
+    border: 1px solid #d3d3d3;
+}
+
+.game__header {
+    position: fixed;
+    top: 0;
+    height: 70px;
+    width: 100%;
+    background-color: #fff;
+    display: flex;
+    align-items: top;
+    padding-top: 16px;
+}
+
+.game__footer {
+    position: fixed;
+    bottom: 0;
+    display: flex;
+    height: 38px;
+    width: 100%;
+    background-color: #333;
+    color: #fff;
+    font-size: 18px;
+    text-transform: uppercase;
+    font-weight: bold;
+    text-align: right;
+}
+
+.player-score__container,
+.player-position__container,
+.player-energy__container {
+    color: #999;
+    margin: 0 12px;
+    text-transform: lowercase;
+    text-align: left;
+    font-size: 12px;
+}
+.player-score__container > *,
+.player-position__container > *,
+.player-energy__container > * {
+    color: #000;
+    font-size: 14px;
+    font-weight: bold;
+    text-transform: uppercase;
 }
 
 .game__button-restart {
-    background: #000;
-    color: #fff;
-    padding: 12px;
-    position: fixed;
-    bottom: 20px;
-    left: 20px;
+    background: #fee133;
+    color: #000;
+    line-height: 38px;
+    font-size: 18px;
+    font-weight: bold;
+    height: 40px;
     z-index: 1000;
     border: none;
+    margin: 0;
+    cursor: pointer;
+    flex-grow: 1;
+}
+.game__button-menu {
+    background: #fee133;
+    color: #000;
+    font-size: 18px;
+    line-height: 38px;
+    font-weight: bold;
+    height: 40px;
+    z-index: 1000;
+    border: none;
+    cursor: pointer;
+    flex-grow: 1;
+    margin: 0;
+}
+
+.menu__container {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    display: none;
+    background-color: #000;
+    z-index: 1000;
+}
+
+.menu__modal {
+    display: flex;
+    height: 100%;
+    flex-direction: column;
+    background-color: #fff;
+    color: #000;
+    z-index: 40000;
+    padding: 2px;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+.menu__info {
+    margin: 0;
+    padding: 12px;
+    flex-grow: 1;
+    overflow: auto;
+    font-size: 20px;
+}
+
+.menu__info p {
+    text-transform: none;
+}
+
+.menu__footer {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: 100%;
+}
+
+.menu__footer > * {
+    margin: 2px;
 }

@@ -31,6 +31,7 @@ var app = {
         game.create();
         game.startGame();
         this.receivedEvent('deviceready');
+        screen.orientation.lock('portrait');
         // document.querySelector('#camera_button').addEventListener('click', this.onCameraButton.bind(this));
     },
 
