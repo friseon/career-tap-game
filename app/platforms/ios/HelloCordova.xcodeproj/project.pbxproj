@@ -23,6 +23,10 @@
 		ED86B439B6E3494D91931623 /* CDVNotification.m in Sources */ = {isa = PBXBuildFile; fileRef = 08647ABCC5B64E61B2CF8CA0 /* CDVNotification.m */; };
 		F7631F05329C4B2FBD1C30AD /* CDVCamera.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AA174F37D7A4C71858774B5 /* CDVCamera.m */; };
 		2D8EB0CF82F84078811359EB /* CDVOrientation.m in Sources */ = {isa = PBXBuildFile; fileRef = C0320BF55771432897779C17 /* CDVOrientation.m */; };
+		CE835DE25C5E4861A41758E0 /* NSString+SSURLEncoding.m in Sources */ = {isa = PBXBuildFile; fileRef = CD978882AB03453EA4850BD9 /* NSString+SSURLEncoding.m */; };
+		AB9C2238C508402D83107D24 /* SocialSharing.m in Sources */ = {isa = PBXBuildFile; fileRef = 5920E9A365864C349F4615E9 /* SocialSharing.m */; };
+		DB2B591EA94F4D7BB48737D2 /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AE42C5D40DBB460197B3293E /* Social.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
+		64F7E6A95817465F9E7A9CF2 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A3CC4E12A80746FC8259CA9A /* MessageUI.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -86,6 +90,12 @@
 		F840E1F0165FE0F500CFE078 /* config.xml */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = config.xml; path = HelloCordova/config.xml; sourceTree = "<group>"; };
 		C0320BF55771432897779C17 /* CDVOrientation.m */ = {isa = PBXFileReference; name = "CDVOrientation.m"; path = "cordova-plugin-screen-orientation/CDVOrientation.m"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; explicitFileType = undefined; includeInIndex = 0; };
 		EB7C92308E534DDDB20C8572 /* CDVOrientation.h */ = {isa = PBXFileReference; name = "CDVOrientation.h"; path = "cordova-plugin-screen-orientation/CDVOrientation.h"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; explicitFileType = undefined; includeInIndex = 0; };
+		CD978882AB03453EA4850BD9 /* NSString+SSURLEncoding.m */ = {isa = PBXFileReference; name = "NSString+SSURLEncoding.m"; path = "cordova-plugin-x-socialsharing/NSString+SSURLEncoding.m"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; explicitFileType = undefined; includeInIndex = 0; };
+		5920E9A365864C349F4615E9 /* SocialSharing.m */ = {isa = PBXFileReference; name = "SocialSharing.m"; path = "cordova-plugin-x-socialsharing/SocialSharing.m"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; explicitFileType = undefined; includeInIndex = 0; };
+		097F17161120447EA9F22F56 /* NSString+SSURLEncoding.h */ = {isa = PBXFileReference; name = "NSString+SSURLEncoding.h"; path = "cordova-plugin-x-socialsharing/NSString+SSURLEncoding.h"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; explicitFileType = undefined; includeInIndex = 0; };
+		01D598285E854C0E8FAE3B15 /* SocialSharing.h */ = {isa = PBXFileReference; name = "SocialSharing.h"; path = "cordova-plugin-x-socialsharing/SocialSharing.h"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; explicitFileType = undefined; includeInIndex = 0; };
+		AE42C5D40DBB460197B3293E /* Social.framework */ = {isa = PBXFileReference; name = "Social.framework"; path = "System/Library/Frameworks/Social.framework"; sourceTree = SDKROOT; fileEncoding = undefined; lastKnownFileType = wrapper.framework; explicitFileType = undefined; includeInIndex = 0; };
+		A3CC4E12A80746FC8259CA9A /* MessageUI.framework */ = {isa = PBXFileReference; name = "MessageUI.framework"; path = "System/Library/Frameworks/MessageUI.framework"; sourceTree = SDKROOT; fileEncoding = undefined; lastKnownFileType = wrapper.framework; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -98,6 +108,8 @@
 				B5E7E0C9E3C24672A0FB0052 /* CoreLocation.framework in Frameworks */,
 				DB4339FB878C4D0491AF7962 /* AVFoundation.framework in Frameworks */,
 				21DB7D39564B463085449D3D /* AudioToolbox.framework in Frameworks */,
+				DB2B591EA94F4D7BB48737D2 /* Social.framework in Frameworks */,
+				64F7E6A95817465F9E7A9CF2 /* MessageUI.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -173,6 +185,8 @@
 				202F4788BAC54EA2BD36199B /* CoreLocation.framework */,
 				DCC07BDB92A54935BAC7F852 /* AVFoundation.framework */,
 				DD55A527200C4DDBA830D4F7 /* AudioToolbox.framework */,
+				AE42C5D40DBB460197B3293E /* Social.framework */,
+				A3CC4E12A80746FC8259CA9A /* MessageUI.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -210,6 +224,10 @@
 				2A07B4EA25294743ADA98BE5 /* CDVNotification.h */,
 				C0320BF55771432897779C17 /* CDVOrientation.m */,
 				EB7C92308E534DDDB20C8572 /* CDVOrientation.h */,
+				CD978882AB03453EA4850BD9 /* NSString+SSURLEncoding.m */,
+				5920E9A365864C349F4615E9 /* SocialSharing.m */,
+				097F17161120447EA9F22F56 /* NSString+SSURLEncoding.h */,
+				01D598285E854C0E8FAE3B15 /* SocialSharing.h */,
 			);
 			name = Plugins;
 			path = HelloCordova/Plugins;
@@ -343,6 +361,8 @@
 				DE8EE596B1B14DB9B14A823F /* CDVJpegHeaderWriter.m in Sources */,
 				ED86B439B6E3494D91931623 /* CDVNotification.m in Sources */,
 				2D8EB0CF82F84078811359EB /* CDVOrientation.m in Sources */,
+				CE835DE25C5E4861A41758E0 /* NSString+SSURLEncoding.m in Sources */,
+				AB9C2238C508402D83107D24 /* SocialSharing.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

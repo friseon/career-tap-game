@@ -179,12 +179,19 @@ var Game = function(options) {
             this.restart();
         },
         toggleMenu: function() {
-            this.isPause = !this.isPause;
-            if (!this.isPause) {
-                menu_container.style.display = "none";
+            if (gameController.isGameOver) {
+                button_resume.style.display = "none";
+                menu_container.style.display = "block";
             }
             else {
-                menu_container.style.display = "block";
+                button_resume.style.display = "block";
+                this.isPause = !this.isPause;
+                if (!this.isPause) {
+                    menu_container.style.display = "none";
+                }
+                else {
+                    menu_container.style.display = "block";
+                }
             }
         },
         clear : function() {
@@ -192,6 +199,7 @@ var Game = function(options) {
         },
         restart: function() {
             this.isPause = false;
+            this.isGameOver = false;
             menu_container.style.display = "none";
             player = new Сomponent(playerG, _options.startPosition.x, _options.startPosition.y, 30, 30);
             listAvailableItems = [
@@ -204,10 +212,12 @@ var Game = function(options) {
             this.frameNo = 0;
             allObjects = {};
             this.clear();
-            if (gameController.interval)
-            clearInterval(gameController.interval);
+            if (gameController.interval) {
+                clearInterval(gameController.interval);
+            }
             this.interval = setInterval(updateGame, 20);
         },
+        isGameOver: false,
         options: {
             // частота появления объектов
             frequencyCreation: 150,
@@ -222,14 +232,23 @@ var Game = function(options) {
         var rand = Math.floor(Math.random() * listAvailableItems.length);
         return listAvailableItems[rand];
     }
+    function game_restarting() {
+        gameController.restart();
+    }
     // callback выбора при проигрыше 
     function onGameOver(buttonIndex) {
         if (buttonIndex === 1) {
-            gameController.restart();
+            navigator.share({
+                'text': 'Лопатой по щщам!\n\nДошёл до позиции \"' + player.getPosition() + '\"\nМой результат: ' + player.experience
+            }).then(function(){
+                gameController.toggleMenu();
+            }).catch(function(){
+                gameController.toggleMenu();
+            });
         } else {
             navigator.notification.alert(
                 "Холодный ветер с дождём\nУсилился стократно,\nВсё говорит об одном,\nЧто нет пути обратно.\nЧто ты не мой лопушок,\nА я не твой Андрейка,\nЧто у любви у нашей\nСела батарейка.\n\nО-о-и-я-и-ё батарейка,\nО-о-и-я-и-ё батарейка.",
-                gameController.restart(),
+                game_restarting,
                 'Жуки - Батарейка',
                 "Ok... Пора работать"
             );
@@ -324,13 +343,14 @@ var Game = function(options) {
         // Закончилась энергия
         if (player.energy <= 0) {
             player.energy = 0;
+            gameController.isGameOver = true;
+            clearInterval(gameController.interval);
             navigator.notification.confirm(
                 player.getPosition() + '! Ты перегорел, но успел получить опыт: ' + player.experience,
                 onGameOver,
                 'Геймовер',
-                ['Сменить работу', 'Грустить']
+                ['Рассказать', 'Грустить']
             );
-            clearInterval(gameController.interval);
         }
         // Удаление объекта
         if (idDeleteObject) {

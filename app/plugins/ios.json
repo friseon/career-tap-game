@@ -20,10 +20,16 @@
         },
         "cordova-plugin-screen-orientation": {
             "PACKAGE_NAME": "io.cordova.hellocordova"
+        },
+        "cordova-plugin-x-socialsharing": {
+            "PACKAGE_NAME": "io.cordova.hellocordova"
         }
     },
     "dependent_plugins": {
         "cordova-plugin-compat": {
+            "PACKAGE_NAME": "io.cordova.hellocordova"
+        },
+        "es6-promise-plugin": {
             "PACKAGE_NAME": "io.cordova.hellocordova"
         }
     }

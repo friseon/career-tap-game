@@ -53,6 +53,20 @@ module.exports = [
         "clobbers": [
             "cordova.plugins.screenorientation"
         ]
+    },
+    {
+        "file": "plugins/cordova-plugin-x-socialsharing/www/SocialSharing.js",
+        "id": "cordova-plugin-x-socialsharing.SocialSharing",
+        "pluginId": "cordova-plugin-x-socialsharing",
+        "clobbers": [
+            "window.plugins.socialsharing"
+        ]
+    },
+    {
+        "file": "plugins/es6-promise-plugin/www/promise.js",
+        "id": "es6-promise-plugin.Promise",
+        "pluginId": "es6-promise-plugin",
+        "runs": true
     }
 ];
 module.exports.metadata = 
@@ -62,7 +76,9 @@ module.exports.metadata =
     "cordova-plugin-camera": "2.4.1",
     "cordova-plugin-whitelist": "1.3.2",
     "cordova-plugin-dialogs": "1.3.3",
-    "cordova-plugin-screen-orientation": "2.0.1"
+    "cordova-plugin-screen-orientation": "2.0.1",
+    "cordova-plugin-x-socialsharing": "5.1.8",
+    "es6-promise-plugin": "4.1.0"
 }
 // BOTTOM OF METADATA
 });

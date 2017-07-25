@@ -24,6 +24,10 @@
     <feature name="CDVOrientation">
         <param name="ios-package" value="CDVOrientation" />
     </feature>
+    <feature name="SocialSharing">
+        <param name="ios-package" value="SocialSharing" />
+        <param name="onload" value="true" />
+    </feature>
     <name>HelloCordova</name>
     <description>
         A sample Apache Cordova application that responds to the deviceready event.
