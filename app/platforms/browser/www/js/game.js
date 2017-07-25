@@ -53,7 +53,7 @@ var Game = function(options) {
 
         menu_info = document.createElement("div");
         menu_info.classList.add('menu__info');
-        menu_info.innerHTML = "<p>Твоя цель - выжить на работе.</p><p><b>Красные блоки</b> - это твои задачи, они расходуют энергию, но дают столь необходимый опыт для твоего карьерного роста.<br><br><b>Черные</b> - всякие плюшки, пополняют энергию.<br>Некоторые блоки имеют свои особенности - привыкай, жизнь сложная штука.</p><p>Управление - просто тапай по экрану и полетишь, не тапнешь - упадешь. И помни, дно и потолок доставляют тебе боль.</p><p>Собственно всё. Удачи! :)</p>";
+        menu_info.innerHTML = "<p><b>Твоя цель</b> - выжить на работе.</p><p><b>Красные блоки</b> - это твои задачи, они расходуют энергию, но дают столь необходимый опыт для твоего карьерного роста.<br><br><b>Черные</b> - всякие плюшки, пополняют энергию.<br><br>Креме этого, некоторые блоки имеют еще и свои особенности - привыкай, жизнь сложная штука.</p><p><b>Управление</b>: просто тапай по экрану и полетишь, не тапнешь - упадешь. И помни, дно и потолок доставляют тебе боль.</p><p>Собственно всё. Удачи! :)</p>";
         menu_window.appendChild(menu_info);
 
         menu_footer = document.createElement("div");
@@ -228,9 +228,9 @@ var Game = function(options) {
             gameController.restart();
         } else {
             navigator.notification.alert(
-                "Любишь ты Алешку больше, чем меня.\nО Лешке ты вздыхаешь зря,\nО Лешке все твои мечты,\nТолько о Сереге позабыла ты!\n\nИ без Лешки жизнь твоя пуста\nТы совсем еще наивна и чиста.\nНаблюдаешь ты за ним из далека.\nТолько между вами слез река!\n\nПотому что есть Алешка у тебя,\nО Лешке ты вздыхаешь зря,\nО Лешке все твои мечты,\nТолько о Сереге позабыла ты!",
+                "Холодный ветер с дождём\nУсилился стократно,\nВсё говорит об одном,\nЧто нет пути обратно.\nЧто ты не мой лопушок,\nА я не твой Андрейка,\nЧто у любви у нашей\nСела батарейка.\n\nО-о-и-я-и-ё батарейка,\nО-о-и-я-и-ё батарейка.",
                 gameController.restart(),
-                'Алешка - Руки Вверх',
+                'Жуки - Батарейка',
                 "Ok... Пора работать"
             );
         }
@@ -485,10 +485,9 @@ var Game = function(options) {
         }
     }
 
-    // создание игрока
+    // Игрок
     var playerG = new GameObject("player", "Я", "#28916E");      
-    // игровые объекты
-    var information = new GameObject("text", "Игровая информация", "red");
+    // Игровые объекты:
     var coffee = new GameObject("objectText", "Кофе", "black", new Effect( { speed: 3, energy: 10 }, 5));
     var energetic = new GameObject("objectText", "Энергетик", "black", new Effect( { speed: -4, energy: 20 }, 5));
     var cookies = new GameObject("objectText", "Печеньки", "black", new Effect( { energy: 4 }));
@@ -497,14 +496,14 @@ var Game = function(options) {
     var relax = new GameObject("objectText", "Take It Easy", "black", new Effect( { speed: -5, energy: 10 }));
     var harmony = new GameObject("objectText", "Успокоиться", "black", new Effect( { speed: -3, energy: 3 }));
 
-    var task = new GameObject("objectText", "Таск", "red", new Effect( { energy: -5, experience: 8 }));
+    var task = new GameObject("objectText", "Таск", "#b20600", new Effect( { energy: -5, experience: 8 }));
+    var taskMinor = new GameObject("objectText", "Минорный таск", "#cb6556", new Effect( { energy: -2, experience: 2 }));
     var prod = new GameObject("objectText", "Уронить прод", "red", new Effect( { energy: -25, experience: -5 }));
-    var trainee = new GameObject("objectText", "Взять стажера", "red", new Effect( { energy: -20, speed: 2, experience: 30 }));
-    var taskMinor = new GameObject("objectText", "Минорный таск", "red", new Effect( { energy: -2, experience: 2 }));
-    var hotfix = new GameObject("objectText", "Хотфикс", "red", new Effect( { energy: -15, experience: 15 }));
-    var hotfixLarge = new GameObject("objectText", "ОЧЕНЬ СРОЧНЫЙ ХОТФИКС", "red", new Effect( { energy: -15, experience: 25 }));
-    var crazy = new GameObject("objectText", "Психануть", "red", new Effect( { speed: 50, energy: -40 }, 2));
-    var deadline = new GameObject("objectText", "Дедлайн", "red", new Effect( { speed: 20, energy: -20, experience: 40 }, 3));
+    var trainee = new GameObject("objectText", "Взять стажера", "#ba1000", new Effect( { energy: -20, speed: 2, experience: 30 }));
+    var hotfix = new GameObject("objectText", "Хотфикс", "#ba1000", new Effect( { energy: -15, experience: 15 }));
+    var hotfixLarge = new GameObject("objectText", "Очень срочный хотфикс", "#ba1000", new Effect( { energy: -15, experience: 25 }));
+    var crazy = new GameObject("objectText", "Психануть", "#ba1000", new Effect( { speed: 50, energy: -40 }, 2));
+    var deadline = new GameObject("objectText", "Дедлайн", "#ba1000", new Effect( { speed: 20, energy: -20, experience: 40 }, 3));
         
     /**
      * Эффект, который накладывается от столкновения с объектом
