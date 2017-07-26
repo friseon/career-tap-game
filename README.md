@@ -6,3 +6,5 @@
 - "cordova-plugin-dialogs"
 - "cordova-plugin-screen-orientation"
 - "cordova-plugin-x-socialsharing"
+
+![ios-screenshot](https://github.com/friseon/career-tap-game/blob/master/res/ios-screenshot.jpg)
