@@ -173,7 +173,7 @@ var Game = function(options) {
             }
         },
         checkDiapason: function(property, min, max) {
-            property = (property >= min ? (property <= max ? property : max) : min);
+            return (property >= min ? (property <= max ? property : max) : min);
         },
         start: function() {
             this.restart();
@@ -372,7 +372,7 @@ var Game = function(options) {
             }
         }
         // Ограничение на скорость игрока
-        gameController.checkDiapason(player.speed, 8, 60);
+        player.speed = gameController.checkDiapason(player.speed, 8, 60);
         // Обновление объектов
         for (var i in allObjects) {
             allObjects[i].x -= Math.floor(player.speed / 5);
